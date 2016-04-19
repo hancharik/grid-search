@@ -23,18 +23,20 @@ public class GridPrinter {
     static Block start;
     static Block end;
     static boolean endFound = false;
-    static int size = 10;
+    static int size = 100;
     static int counter = 0;
     static Block penultimate;
-    
+    static double startTime;
+    static double endTime;
     
     public static void main(String[] args) {
       
+        startTime = System.currentTimeMillis();
        blocks = new ArrayList();
        createGrid();
         start = new Block(0,2);
         openBlocks.add(start);
-        end = new Block(8,8);
+        end = new Block(89,77);
         start.addNeighborsToOpenList();
        
        
@@ -48,6 +50,8 @@ public class GridPrinter {
         printBlockValues();
         buildPath();
         showPath();
+         endTime = System.currentTimeMillis() - startTime;
+         System.out.println("time in miliseconds to complete = " + endTime );
     }
    
     /*
@@ -97,13 +101,17 @@ public class GridPrinter {
         mapGrid[5][6] = 1;
        
  */
-         //mapGrid[5][6] = 1;
+          mapGrid[3][6] = 1;
+      mapGrid[4][6] = 1;
+       mapGrid[5][6] = 1;
          mapGrid[6][6] = 1;
          mapGrid[7][6] = 1;
          mapGrid[8][6] = 1;
          mapGrid[9][6] = 1;
        
-        
+        mapGrid[3][7] = 1;
+        mapGrid[3][8] = 1;
+       // mapGrid[3][6] = 1;
         
     }
     
@@ -111,8 +119,8 @@ public class GridPrinter {
     
         public static void createGrid(){
              mapGrid = new int[size][size];
-           for(int i = 0; i < 10; i++){
-            for(int j = 0; j < 10; j++){
+           for(int i = 0; i < size; i++){
+            for(int j = 0; j < size; j++){
            
                     mapGrid[i][j] = 0;
                 
@@ -139,8 +147,8 @@ public class GridPrinter {
       
      public static void printGrid(){
        
-         for(int i = 0; i < 10; i++){
-            for(int j = 0; j < 10; j++){
+         for(int i = 0; i < size; i++){
+            for(int j = 0; j < size; j++){
        
              
                System.out.print(mapGrid[i][j] + "\t");
@@ -198,7 +206,7 @@ public class GridPrinter {
        System.out.println("path step [" +penultimate.x + "][" + penultimate.y + "]");// System.out.println("adding penultimate [" +penultimate.x + "][" + penultimate.y + "]");
       // System.out.println(" penultimate parent =  [" +penultimate.parent.x + "][" + penultimate.parent.y + "]");
       Block temp = penultimate.parent;
-      for(int i = 0; i < 50; i++){
+      for(int i = 0; i < closedBlocks.size(); i++){
            System.out.println("path step [" +temp.x + "][" + temp.y + "]");
         path.add(temp);
         if(temp.parent!=null){
