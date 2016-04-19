@@ -37,7 +37,7 @@ public class Block {
     private void setDistance(){
         
         // distance = (int)(Math.sqrt(( endx-x)*( endx-x)+( endy-y)*( endy-y))*10);
-         hValue = (int)(Math.sqrt(( gridprinter.GridPrinter.end.x-x)*( gridprinter.GridPrinter.end.x-x)+(  gridprinter.GridPrinter.end.y-y)*(  gridprinter.GridPrinter.end.y-y))*10);
+         hValue = (int)(Math.sqrt(( gridprinter.GridPrinter.graph.end.x-x)*( gridprinter.GridPrinter.graph.end.x-x)+(  gridprinter.GridPrinter.graph.end.y-y)*(  gridprinter.GridPrinter.graph.end.y-y))*10);
        
     }
    
@@ -53,7 +53,7 @@ public class Block {
        
        int tempCost = 0;
        int costCalcInt = 0;
-        //gridprinter.GridPrinter.openBlocks.remove(this);  
+        //gridprinter.GridPrinter.graph.openBlocks.remove(this);  
        System.out.println("adding [" + this.x + "][" + this.y + "] to the open list");
       
       
@@ -64,26 +64,26 @@ public class Block {
                 
                 if(withinMapBoundaries(x+i,y+j)){
                     
-              if(gridprinter.GridPrinter.end.x == x+i && gridprinter.GridPrinter.end.y == y+j){
+              if(gridprinter.GridPrinter.graph.end.x == x+i && gridprinter.GridPrinter.graph.end.y == y+j){
                  System.out.println("end found");
-                 gridprinter.GridPrinter.endFound = true; 
-                 gridprinter.GridPrinter.penultimate = this;
+                 gridprinter.GridPrinter.graph.endFound = true; 
+                 gridprinter.GridPrinter.graph.penultimate = this;
                 }else{
            
-                if(gridprinter.GridPrinter.mapGrid[x+i][y+j]==0){
-               if(!gridprinter.GridPrinter.openContainsThisBlock(temp.x , temp.y) &&  !gridprinter.GridPrinter.closedContainsThisBlock(temp.x , temp.y)){
+                if(gridprinter.GridPrinter.graph.mapGrid[x+i][y+j]==0){
+               if(!gridprinter.GridPrinter.graph.openContainsThisBlock(temp.x , temp.y) &&  !gridprinter.GridPrinter.graph.closedContainsThisBlock(temp.x , temp.y)){
                         temp.setfValue(); 
-                   gridprinter.GridPrinter.addToOpenList(temp);
+                   gridprinter.GridPrinter.graph.addToOpenList(temp);
                
                 // add a block to the open list
-              // gridprinter.GridPrinter.blocks.add(new Block(x+i,y+j));
+              // gridprinter.GridPrinter.graph.blocks.add(new Block(x+i,y+j));
                
                // record parent
-               //gridprinter.GridPrinter.blocks.get( gridprinter.GridPrinter.openListSize()-1).parent = this;
+               //gridprinter.GridPrinter.graph.blocks.get( gridprinter.GridPrinter.graph.openListSize()-1).parent = this;
                temp.parent = this;
                
                //calculate hueristic (H)
-              // gridprinter.GridPrinter.blocks.get( gridprinter.GridPrinter.openListSize()-1).setDistance();
+              // gridprinter.GridPrinter.graph.blocks.get( gridprinter.GridPrinter.graph.openListSize()-1).setDistance();
                temp.setDistance();
                
                
@@ -98,7 +98,7 @@ public class Block {
                 // check of the block is in the open list, or null, or an obstacle
                 // add a block to the open list
               //  if(i == 0 && j == 0){
-                 //gridprinter.GridPrinter.blocks.get( gridprinter.GridPrinter.openListSize()-1).setfValue();
+                 //gridprinter.GridPrinter.graph.blocks.get( gridprinter.GridPrinter.graph.openListSize()-1).setfValue();
                // }else{
                      }
                  
@@ -110,8 +110,8 @@ public class Block {
             } // end if within map boundaries 
        }  // end for j
        }  // end for i
-       gridprinter.GridPrinter.removeFromOpenList(this);
-        gridprinter.GridPrinter.addToClosedList(this);  
+       gridprinter.GridPrinter.graph.removeFromOpenList(this);
+        gridprinter.GridPrinter.graph.addToClosedList(this);  
         System.out.println("adding [" + this.x + "][" + this.y + "] to the closed list");
       
    } // end add neighbors to the open list
@@ -121,11 +121,11 @@ public class Block {
       
       boolean temp = true;
       
-      if(x < 0 || x > gridprinter.GridPrinter.size-1){
+      if(x < 0 || x > gridprinter.GridPrinter.graph.size-1){
          temp = false; 
       }
       
-       if(y < 0 || y > gridprinter.GridPrinter.size-1){
+       if(y < 0 || y > gridprinter.GridPrinter.graph.size-1){
           temp = false;
       }
       
